@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='ubersmith',
-    version='0.3.11',
+    name='ubersmith-python',
+    version='0.0.1',
     author='Jason Keene',
     author_email='jasonkeene@gmail.com',
     description='Client library for the Ubersmith API 2.0',
