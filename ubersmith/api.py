@@ -14,6 +14,7 @@ from ubersmith.exceptions import (
 from ubersmith.utils import (
     append_qs,
     get_filename,
+    to_nested_php_args,
 )
 
 __all__ = [
@@ -302,6 +303,7 @@ class RequestHandler(object):
     def _encode_data(data):
         """URL encode data."""
         data = data if data is not None else {}
+        data = to_nested_php_args(data)
         files = dict([
             (key, value) for key, value in
             data.items() if isinstance(value, file_type)])
