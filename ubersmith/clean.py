@@ -20,7 +20,10 @@ def cleaner(func):
 
 @cleaner
 def php(val):
-    return phpserialize.loads(val.encode("utf-8"))
+    try:
+        return phpserialize.loads(val.encode("utf-8"))
+    except:
+        return val
 
 
 @cleaner

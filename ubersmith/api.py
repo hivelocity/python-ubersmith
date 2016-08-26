@@ -289,7 +289,7 @@ class RequestHandler(object):
     def _send_request(self, method, data):
         url = append_qs(self.base_url, {'method': method})
         data, files, headers = self._encode_data(data)
-        return requests.post(url, json=data, files=files, headers=headers,
+        return requests.post(url, data=data, files=files, headers=headers,
                              auth=(self.username, self.password),
                              verify=self.verify)
 
