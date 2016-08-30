@@ -329,6 +329,15 @@ class BaseResponse(object):
     def __init__(self, response):
         self.response = response  # requests' response object
 
+    def __int__(self):
+        return int(self.data)
+
+    def __str__(self):
+        return str(self.data)
+
+    def __unicode__(self):
+        return unicode(self.data)
+
     @classmethod
     def from_cleaned(cls, response, cleaned):
         resp = cls(response.response)
