@@ -267,8 +267,12 @@ class RequestHandler(object):
             break
 
         resp = BaseResponse(response)
+        self.check_for_response_errors(resp)
+        return resp
 
+    def check_for_response_errors(self, resp):
         # test for error in json response
+        response = resp.response
         if response.headers.get('content-type') == 'application/json':
             if not resp.json.get('status'):
                 if all([
@@ -279,12 +283,17 @@ class RequestHandler(object):
                     raise MaintenanceResponse(response=resp.json)
                 else:
                     raise ResponseError(response=resp.json)
-        return resp
+        elif not str(response.status_code).startswith('2'):
+            error = '\nSTATUS CODE: {}\nCONTENT: {}'.format(
+                response.status_code,
+                str(response.content)
+            )
+            raise ResponseError(error)
 
     @staticmethod
     def _is_token_response(response):
         return ('text/html' in response.headers.get('content-type', '') and
-                'Updating Token' in response.content)
+                'Updating Token' in str(response.content))
 
     def _send_request(self, method, data):
         url = append_qs(self.base_url, {'method': method})
