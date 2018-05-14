@@ -284,7 +284,7 @@ class RequestHandler(object):
     @staticmethod
     def _is_token_response(response):
         return ('text/html' in response.headers.get('content-type', '') and
-                'Updating Token' in response.content)
+                b'Updating Token' in response.content)
 
     def _send_request(self, method, data):
         url = append_qs(self.base_url, {'method': method})
